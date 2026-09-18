@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {normalizeCivilian} from '../server/civilian.mjs';
+import {requestCamera,cameraProblem} from '../dist/camera-support.js';
+test('civilian statements remain unverified and separate from document fields',()=>{const v=normalizeCivilian({fullName:' Test Civilian ',source:'civilian_statement',verification:'verified',passportName:'Do not copy',birthDate:'1994-04-12'});assert.equal(v.fullName,'Test Civilian');assert.equal(v.verification,'unverified');assert.equal(v.passportName,undefined);assert.equal(v.source,'civilian_statement')});
+test('invalid civilian dates and source are rejected',()=>{for(const birthDate of ['2025-02-29','2999-01-01'])assert.throws(()=>normalizeCivilian({fullName:'Test',source:'civilian_statement',birthDate}));assert.throws(()=>normalizeCivilian({fullName:'Test',source:'ocr'}));});
+test('camera retries unsupported constraints with a default video-only request',async()=>{const calls=[];const stream={};const result=await requestCamera({getUserMedia:async c=>{calls.push(c);if(calls.length===1)throw {name:'OverconstrainedError'};return stream}},'face','disconnected-device');assert.equal(result,stream);assert.deepEqual(calls[1],{video:true,audio:false});});
+test('camera never retries denied permission or disguises it as no device',async()=>{let n=0;await assert.rejects(requestCamera({getUserMedia:async()=>{n++;throw Object.assign(new Error('denied'),{name:'NotAllowedError'})}},'face'),{name:'NotAllowedError'});assert.equal(n,1);assert.match(cameraProblem({name:'NotAllowedError'}),/Camera → Allow/);assert.match(cameraProblem({}, {policyAllowed:false}),/embedded view/);});

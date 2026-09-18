@@ -6,6 +6,9 @@ await request(a,'/cases','GET',undefined,401);
 await request(a,'/login','POST',{name:'Integration Officer A',officerCode:'TEST-A-'+suffix,checkpoint:'Local automated tests'});
 assert.equal((await request(a,'/cases')).cases.length,0);
 const c=await request(a,'/cases','POST',{travellerName:'Fictional Test Traveller'},201);
+await request(a,`/cases/${c.id}/civilian`,'POST',{fullName:'Fictional Test Traveller',source:'civilian_statement',birthDate:'1994-04-12',statement:'Fictional test statement',verification:'verified'});
+const civilianCase=await request(a,`/cases/${c.id}`);assert.equal(civilianCase.civilian.verification,'unverified');assert.equal(civilianCase.civilian.source,'civilian_statement');assert.deepEqual(civilianCase.fields,{});
+await request(a,`/cases/${c.id}/civilian`,'POST',{fullName:'Test',source:'ocr'},400);
 await request(a,`/cases/${c.id}/fields`,'POST',{passportName:'Fictional Test Traveller',passportDob:'1994-04-12',visaDob:'1995-04-12',passportExpiry:'2034-01-01'});
 const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j5xoAAAAASUVORK5CYII=','base64');
 async function upload(actor,kind='document',source='upload'){const f=new FormData();f.append('file',new Blob([png],{type:'image/png'}),'test-fixture.png');f.append('kind',kind);f.append('source',source);f.append('documentType',kind==='face'?'face':'passport');return request(actor,`/cases/${c.id}/captures`,'POST',f,201)}
@@ -17,6 +20,7 @@ await request(a,`/cases/${c.id}/decision`,'POST',{action:'supervisor',reason:'Bi
 await request(b,'/login','POST',{name:'Integration Officer B',officerCode:'TEST-B-'+suffix,checkpoint:'Local automated tests'});
 assert.equal((await request(b,'/cases')).cases.length,0);
 await request(b,`/cases/${c.id}`,'GET',undefined,404);await request(b,`/captures/${cap.id}`,'GET',undefined,404);
+await request(b,`/cases/${c.id}/civilian`,'POST',{fullName:'Other',source:'civilian_statement'},404);
 await request(b,`/cases/${c.id}/decision`,'POST',{action:'note',reason:'Unauthorized action'},404);
 await request(a,'/logout','POST',{});await request(a,'/cases','GET',undefined,401);
 await request(a,'/login','POST',{});assert.equal((await request(a,'/cases')).cases[0].status,'supervisor_review');

@@ -41,3 +41,9 @@ For local preview only, ignored `.dev.vars` may contain `LOCAL_DEVELOPMENT=true`
 Run `npm test` for field-rule and input checks. With the local server running, run `node tests/integration.mjs` for login, persistence, ownership isolation, upload storage, recapture versioning, stale results, logout and invalid-pass enforcement. Integration fixtures use isolated local test accounts and do not populate hosted officer records.
 
 `server/worker.mjs` implements the API, `server/checks.mjs` implements the currently supported checks, `db/schema.ts` defines storage, and `dist/workspace.js` implements the interface. The build embeds the active UI in the Worker output; old reference-only static files are not exposed by the new server.
+
+## Civilian information and camera recovery
+
+Start a case with a document or manual civilian entry. Civilian statements and document transcriptions are saved separately from document fields and always marked unverified. The persistent route uses the `civilians` table; the public demo uses memory only. Saved profile information appears in review. Uploading a document does not yet extract its text.
+
+Camera access requires HTTPS, browser permission and device permission. The interface distinguishes permission, unsupported-context, device and in-use failures. It retries unsupported constraints with a default camera, stops streams on close/navigation and offers an HTML capture/file-picker fallback (`device_camera`). That fallback may return an existing photo and never proves liveness. The application cannot override browser/OS camera denial.

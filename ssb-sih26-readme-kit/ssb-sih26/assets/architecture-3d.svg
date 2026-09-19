@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" width="1100" height="640" role="img" aria-labelledby="t d">
+<title id="t">SeemaDrishti 3D architecture</title>
+<desc id="d">Exploded isometric view of four layers: officer UI, Worker API, checks engine, and Cloudflare D1 plus R2 storage.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#070b1a"/><stop offset="1" stop-color="#150f3a"/></linearGradient>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.045"/></pattern>
+  <style>
+    @keyframes floaty { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+    @keyframes dash { to { stroke-dashoffset: -20; } }
+    .l1 { animation: floaty 4.6s ease-in-out infinite; }
+    .l2 { animation: floaty 4.6s ease-in-out infinite .5s; }
+    .l3 { animation: floaty 4.6s ease-in-out infinite 1s; }
+    .flow { stroke-dasharray: 6 4; animation: dash 1.2s linear infinite; }
+    text { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+  </style>
+</defs>
+<rect width="1100" height="640" rx="18" fill="url(#bg)"/>
+<rect width="1100" height="640" rx="18" fill="url(#grid)"/>
+<text x="40" y="52" font-size="26" font-weight="700" fill="#ffffff">System architecture</text>
+<text x="40" y="78" font-size="15" fill="#a5b4fc">Exploded 3D view · one Cloudflare Worker, D1 for records, R2 for files</text>
+
+<g class="l3"><polygon points="220.9,520.0 270.2,548.5 270.2,533.5 220.9,505.0" fill="#25b283" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="379.4,485.5 270.2,548.5 270.2,533.5 379.4,470.5" fill="#0f7a5a" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="330.0,442.0 379.4,470.5 270.2,533.5 220.9,505.0" fill="#6ee7b7" stroke="rgba(255,255,255,0.10)" stroke-width="1"/></g>
+<g class="l3"><polygon points="280.6,554.5 330.0,583.0 330.0,568.0 280.6,539.5" fill="#e8842a" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="439.1,520.0 330.0,583.0 330.0,568.0 439.1,505.0" fill="#a85512" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="389.8,476.5 439.1,505.0 330.0,568.0 280.6,539.5" fill="#fdba74" stroke="rgba(255,255,255,0.10)" stroke-width="1"/></g>
+<g class="l2"><polygon points="220.9,406.0 330.0,469.0 330.0,454.0 220.9,391.0" fill="#e0a020" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="439.1,406.0 330.0,469.0 330.0,454.0 439.1,391.0" fill="#a3700f" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="330.0,328.0 439.1,391.0 330.0,454.0 220.9,391.0" fill="#fcd34d" stroke="rgba(255,255,255,0.10)" stroke-width="1"/></g>
+<g class="l2"><polygon points="220.9,292.0 330.0,355.0 330.0,340.0 220.9,277.0" fill="#8b6fe8" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="439.1,292.0 330.0,355.0 330.0,340.0 439.1,277.0" fill="#5b43a8" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="330.0,214.0 439.1,277.0 330.0,340.0 220.9,277.0" fill="#c4b5fd" stroke="rgba(255,255,255,0.10)" stroke-width="1"/></g>
+<g class="l1"><polygon points="220.9,178.0 330.0,241.0 330.0,226.0 220.9,163.0" fill="#1aa6c4" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="439.1,178.0 330.0,241.0 330.0,226.0 439.1,163.0" fill="#0e7490" stroke="rgba(255,255,255,0.10)" stroke-width="1"/><polygon points="330.0,100.0 439.1,163.0 330.0,226.0 220.9,163.0" fill="#67e8f9" stroke="rgba(255,255,255,0.10)" stroke-width="1"/></g>
+<polyline points="443.1,163.0 640,163.0 640,169" fill="none" stroke="#67e8f9" stroke-width="1.5" class="flow" opacity="0.8"/><circle cx="660" cy="169" r="15" fill="#67e8f9"/><text x="660" y="174" font-size="15" font-weight="700" fill="#0b1020" text-anchor="middle">1</text><text x="688" y="173" font-size="22" font-weight="700" fill="#ffffff">Officer UI</text><text x="688" y="195" font-size="14" fill="#c7d2fe">dist/workspace.js · entry screen, /judge, /officer</text>
+<polyline points="443.1,277.0 640,277.0 640,284" fill="none" stroke="#c4b5fd" stroke-width="1.5" class="flow" opacity="0.8"/><circle cx="660" cy="284" r="15" fill="#c4b5fd"/><text x="660" y="289" font-size="15" font-weight="700" fill="#0b1020" text-anchor="middle">2</text><text x="688" y="288" font-size="22" font-weight="700" fill="#ffffff">Worker API</text><text x="688" y="310" font-size="14" fill="#c7d2fe">server/worker.mjs · sessions, ownership, audit</text>
+<polyline points="443.1,391.0 640,391.0 640,399" fill="none" stroke="#fcd34d" stroke-width="1.5" class="flow" opacity="0.8"/><circle cx="660" cy="399" r="15" fill="#fcd34d"/><text x="660" y="404" font-size="15" font-weight="700" fill="#0b1020" text-anchor="middle">3</text><text x="688" y="403" font-size="22" font-weight="700" fill="#ffffff">Checks engine</text><text x="688" y="425" font-size="14" fill="#c7d2fe">server/checks.mjs · rules on entered fields</text>
+<polyline points="383.4,470.5 640,470.5 640,489" fill="none" stroke="#6ee7b7" stroke-width="1.5" class="flow" opacity="0.8"/><circle cx="660" cy="489" r="15" fill="#6ee7b7"/><text x="660" y="494" font-size="15" font-weight="700" fill="#0b1020" text-anchor="middle">4</text><text x="688" y="493" font-size="22" font-weight="700" fill="#ffffff">Cloudflare D1</text><text x="688" y="515" font-size="14" fill="#c7d2fe">officers · sessions · cases · checks · reviews · audit</text>
+<polyline points="443.1,505.0 640,505.0 640,574" fill="none" stroke="#fdba74" stroke-width="1.5" class="flow" opacity="0.8"/><circle cx="660" cy="574" r="15" fill="#fdba74"/><text x="660" y="579" font-size="15" font-weight="700" fill="#0b1020" text-anchor="middle">5</text><text x="688" y="578" font-size="22" font-weight="700" fill="#ffffff">Cloudflare R2</text><text x="688" y="600" font-size="14" fill="#c7d2fe">uploaded documents and face captures · 12 MB max</text>
+</svg>

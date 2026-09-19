@@ -19,4 +19,4 @@ export function buildChecks(captures,fields){
  {id:'external',label:'External document status',state:'not_performed',detail:'No authorized issuer or document-status database is connected.',basis:'External status unknown'}];
 }
 export function canPass(checks){return Array.isArray(checks)&&['capture','quality','ocr','validation','tampering','face','external'].every(id=>checks.some(c=>c.id===id&&c.state==='passed'));}
-export function fileType(bytes){if(bytes[0]===255&&bytes[1]===216&&bytes[2]===255)return 'image/jpeg';if(bytes.slice(0,8).join(',')==='137,80,78,71,13,10,26,10')return 'image/png';const str=new TextDecoder().decode(bytes.slice(0,12));if(str.startsWith('%PDF-'))return 'application/pdf';if(str.startsWith('RIFF')&&str.slice(8)==='WEBP')return 'image/webp';return null;}
+export function fileType(bytes){if(bytes[0]===255&&bytes[1]===216&&bytes[2]===255)return 'image/jpeg';if(bytes.slice(0,8).join(',')==='137,80,78,71,13,10,26,10')return 'image/png';const str=new TextDecoder().decode(bytes.slice(0,12));if(str.startsWith('%PDF-'))return 'application/pdf';if(str.startsWith('RIFF')&&str.slice(8,12)==='WEBP')return 'image/webp';return null;}
